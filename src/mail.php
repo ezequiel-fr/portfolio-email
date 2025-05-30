@@ -2,6 +2,7 @@
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
 /**
  * Send an email using PHPMailer.
@@ -33,8 +34,8 @@ function send_mail(
         // Server settings
         $mail->SMTPAuth    = boolval($_ENV['SMTP_AUTH']);
         $mail->SMTPDebug   = $_ENV['APP_DEBUG'] === 'true'
-            ? PHPMailer::DEBUG_SERVER
-            : PHPMailer::DEBUG_OFF;
+            ? SMTP::DEBUG_SERVER
+            : SMTP::DEBUG_OFF;
         $mail->SMTPSecure  = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Host        = $_ENV['SMTP_HOST'];
         $mail->Username    = $_ENV['SENDER_MAIL'];
