@@ -38,6 +38,11 @@ $context->fromRequest($request);
 $urlMatcher = new UrlMatcher($routes, $context);
 $pathInfo = $request->getPathInfo();
 
+// Strip '/api' prefix
+if (str_starts_with($pathInfo, '/api')) {
+    $pathInfo = substr($pathInfo, 4) ?: '/';
+}
+
 // Initialize response
 $response = new Response();
 
