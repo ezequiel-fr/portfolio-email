@@ -36,7 +36,10 @@ function send_mail(
         $mail->SMTPDebug   = $_ENV['APP_DEBUG'] === 'true'
             ? SMTP::DEBUG_SERVER
             : SMTP::DEBUG_OFF;
-        $mail->SMTPSecure  = PHPMailer::ENCRYPTION_STARTTLS;
+        // $mail->SMTPSecure  = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->SMTPSecure  = $_ENV['SMTP_SECURE'] === 'tls'
+            ? PHPMailer::ENCRYPTION_STARTTLS
+            : PHPMailer::ENCRYPTION_SMTPS;
         $mail->Host        = $_ENV['SMTP_HOST'];
         $mail->Username    = $_ENV['SENDER_MAIL'];
         $mail->Password    = $_ENV['SENDER_PASSWORD'];
