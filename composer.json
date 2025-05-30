@@ -1,0 +1,22 @@
+{
+    "name": "ezequiel/portfolio-email",
+    "description": "Portfolio automation to send messages as emails.",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Ezequiel\\PortfolioEmail\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ezequiel Dev",
+            "email": "theredminedu51@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.10",
+        "symfony/dotenv": "^7.3",
+        "symfony/http-foundation": "^7.3",
+        "symfony/routing": "^7.3"
+    }
+}

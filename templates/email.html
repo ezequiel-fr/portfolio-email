@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Nouveau message depuis le portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; color: #333;">
+    <div
+        style="background-color: #ffffff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        <h2 style="color: #27d795;">Nouveau message reçu depuis votre portfolio :</h2>
+
+        <div style="font-weight: bold; margin-top: 10px;">Nom :</div>
+        <div style="margin-bottom: 15px;">{{name}}</div>
+
+        <div style="font-weight: bold; margin-top: 10px;">Adresse e-mail :</div>
+        <div style="margin-bottom: 15px;">{{email}}</div>
+
+        <div style="font-weight: bold; margin-top: 10px;">Sujet :</div>
+        <div style="margin-bottom: 15px;">{{subject}}</div>
+
+        <div style="font-weight: bold; margin-top: 10px;">Message :</div>
+        <div style="margin-bottom: 15px;">
+            <pre
+                style="font-family: Arial, sans-serif; overflow-x: auto; white-space: pre-wrap;"
+            >{{message}}</pre>
+        </div>
+
+        <hr style="margin-top: 30px; border: none; border-top: 1px solid #ccc;">
+
+        <p style="font-size: 0.9em; color: #999;">
+            Ce message a été généré automatiquement depuis votre formulaire de contact.
+        </p>
+    </div>
+</body>
+</html>
