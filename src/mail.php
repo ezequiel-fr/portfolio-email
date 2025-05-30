@@ -31,11 +31,14 @@ function send_mail(
         $mail->isSMTP();
 
         // Server settings
-        $mail->Host        = $_ENV['SMTP_HOST'];
         $mail->SMTPAuth    = boolval($_ENV['SMTP_AUTH']);
+        $mail->SMTPDebug   = $_ENV['APP_DEBUG'] === 'true'
+            ? PHPMailer::DEBUG_SERVER
+            : PHPMailer::DEBUG_OFF;
+        $mail->SMTPSecure  = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Host        = $_ENV['SMTP_HOST'];
         $mail->Username    = $_ENV['SENDER_MAIL'];
         $mail->Password    = $_ENV['SENDER_PASSWORD'];
-        $mail->SMTPSecure  = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port        = intval($_ENV['SMTP_PORT']);
     }
 
