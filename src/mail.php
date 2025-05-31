@@ -4,6 +4,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
+const PROTOCOLS = [
+    'tls' => PHPMailer::ENCRYPTION_STARTTLS,
+    'ssl' => PHPMailer::ENCRYPTION_SMTPS,
+    'none' => null,
+];
+
 /**
  * Send an email using PHPMailer.
  * 
@@ -36,7 +42,6 @@ function send_mail(
         $mail->SMTPDebug   = $_ENV['APP_DEBUG'] === 'true'
             ? SMTP::DEBUG_SERVER
             : SMTP::DEBUG_OFF;
-        // $mail->SMTPSecure  = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->SMTPSecure  = $_ENV['SMTP_SECURE'] === 'tls'
             ? PHPMailer::ENCRYPTION_STARTTLS
             : PHPMailer::ENCRYPTION_SMTPS;
@@ -44,6 +49,9 @@ function send_mail(
         $mail->Username    = $_ENV['SENDER_MAIL'];
         $mail->Password    = $_ENV['SENDER_PASSWORD'];
         $mail->Port        = intval($_ENV['SMTP_PORT']);
+    } else {
+        // Use PHP's mail function
+        $mail->isMail();
     }
 
     // Recipients

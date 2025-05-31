@@ -43,12 +43,12 @@ try {
         'message' => 'Failed to send email: '.$e->getMessage(),
     ]);
 
-    $code = $e->getCode();
+    $code = 500;
 } catch (\Throwable $th) {
     echo json_encode([
         'status' => 'error',
         'message' => 'An error occurred: '.$th->getMessage(),
     ]);
 
-    $code = $th->getCode();
+    $code = 500;
 }
