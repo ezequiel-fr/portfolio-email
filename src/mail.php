@@ -60,7 +60,7 @@ function send_mail(
     $mail->addAddress($email, $name);
 
     // replace placeholders in the string with right params
-    $params = array_merge($params, ['name' => $name, 'email' => $email]);
+    $params = array_merge(['name' => $name, 'email' => $email], $params);
     $map = array_map(fn($key) => sprintf('{{%s}}', $key), array_keys($params));
     $val = array_values($params);
 
