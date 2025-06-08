@@ -51,6 +51,14 @@ $response->headers->set('Access-Control-Allow-Origin', '*');
 $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
+if ($request->isMethod('OPTIONS')) {
+    // Handle preflight requests
+    $response->setStatusCode(Response::HTTP_OK);
+    $response->send();
+
+    exit;
+}
+
 try {
     // Extract route variables
     $routeVariables = $urlMatcher->match($pathInfo);
