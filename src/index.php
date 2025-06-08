@@ -19,11 +19,6 @@ $dotenv->loadEnv(__DIR__ . '/../.env');
 // Get the current request
 $request = Request::createFromGlobals();
 
-// Set up CORS headers
-$request->headers->set('Access-Control-Allow-Origin', '*');
-$request->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-$request->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
 // Load middlewares
 $middlewares = require __DIR__ . '/middlewares/index.php';
 // If a response was set, stop the code here
@@ -50,6 +45,11 @@ if (str_starts_with($pathInfo, '/api')) {
 
 // Initialize response
 $response = new Response();
+
+// Set up CORS headers
+$response->headers->set('Access-Control-Allow-Origin', '*');
+$response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+$response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
 try {
     // Extract route variables
