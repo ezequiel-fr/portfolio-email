@@ -19,6 +19,11 @@ $dotenv->loadEnv(__DIR__ . '/../.env');
 // Get the current request
 $request = Request::createFromGlobals();
 
+// Set up CORS headers
+$request->headers->set('Access-Control-Allow-Origin', '*');
+$request->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+$request->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
 // Load middlewares
 $middlewares = require __DIR__ . '/middlewares/index.php';
 // If a response was set, stop the code here
