@@ -11,6 +11,16 @@ use Symfony\Component\Routing\RequestContext;
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/logs.php';
 
+/* Define the CORS headers just before sending the response */
+function sendWithCORS($response) {
+    // Set up CORS headers
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+    $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    $response->send();
+}
+
 /* Load environment variables */
 $dotenv = new Dotenv();
 $dotenv->loadEnv(__DIR__ . '/../.env');
@@ -23,7 +33,7 @@ $request = Request::createFromGlobals();
 $middlewares = require __DIR__ . '/middlewares/index.php';
 // If a response was set, stop the code here
 if (isset($middlewares['response']) && $middlewares['response'] instanceof Response) {
-    $middlewares['response']->send();
+    sendWithCORS($middlewares['response']);
     exit;
 }
 
@@ -45,6 +55,14 @@ if (str_starts_with($pathInfo, '/api')) {
 
 // Initialize response
 $response = new Response();
+
+if ($request->isMethod('OPTIONS')) {
+    // Handle preflight requests
+    $response->setStatusCode(Response::HTTP_OK);
+    sendWithCORS($response);
+
+    exit;
+}
 
 try {
     // Extract route variables
@@ -94,7 +112,7 @@ try {
 }
 
 // Send the response
-$response->send();
+sendWithCORS($response);
 
 // Log the request and response
 logMessage(
