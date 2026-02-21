@@ -15,3 +15,6 @@ composer.lock
 # Ignore log files
 *.log
 /logs
+
+# Ignore uploaded files
+tmp/

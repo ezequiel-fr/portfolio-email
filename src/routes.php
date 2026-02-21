@@ -13,5 +13,7 @@ $routes->add('email', new SymfonyRoute('/email/{id}', [
     'id' => null,
 ], [], [], '', [], ['POST']));
 
+$routes->add('custom-email', new SymfonyRoute('/custom-email', [], [], [], '', [], ['POST']));
+
 // Output routes
 return $routes;

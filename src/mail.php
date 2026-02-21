@@ -14,12 +14,19 @@ const PROTOCOLS = [
  * Send an email using PHPMailer.
  * 
  * @param string $email The recipient's email address
+ * 
  * @param string $name The recipient's name
+ * 
  * @param string $subject The subject of the email
+ * 
  * @param string $content The HTML content of the email
+ * 
  * @param array|null $params Optional parameters to replace placeholders in the subject and content
+ * 
  * @param string|null $altBody Optional plain text alternative body for the email
- * @param array|null $attachments Optional array of file paths to attach to the email
+ * 
+ * @param array|null $attachments Optional array of file paths to attach to the email (each
+ * attachment should be an array with 'filename', 'cid', and 'name' keys)
  */
 function send_mail(
     string $email,
@@ -71,10 +78,15 @@ function send_mail(
     // Attachments
     if (is_array($attachments) && count($attachments) > 0) {
         foreach ($attachments as $attachment) {
-            if (file_exists($attachment)) {
-                $mail->addAttachment($attachment);
+            if (file_exists($attachment['filename'])) {
+                $mail->addAttachment(
+                    $attachment['filename'],
+                    $attachment['name'],
+                    PHPMailer::ENCODING_BASE64,
+                    $attachment['type'],
+                );
             } else {
-                throw new Exception("Attachment file does not exist: " . $attachment);
+                throw new Exception("Attachment file does not exist: " . json_encode($attachment));
             }
         }
     }
